@@ -30,4 +30,15 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TestLamb.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="TestMatrix.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="TestRunTime.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

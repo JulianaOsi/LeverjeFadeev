@@ -127,18 +127,16 @@ Matr operator * (double a, Matr B)
 // заполняет матрицу случайными вещественными числами
 Matr EnterRandom(Matr A)
 {
-	/*ofstream o("x16.txt");*/
 	srand((unsigned int)time(0));
 	for (int i = 0; i < A.row; i++)
 	{
 		for (int j = 0; j < A.col; j++)
 		{
 			A.M[i][j] = (double)rand() / (double)RAND_MAX;
-			/*o << " " << A.M[i][j];*/
+			
 		}
-		/*o << endl;*/
 	}
-	/*o.close();*/
+
 	return A;
 }
 

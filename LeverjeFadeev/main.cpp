@@ -7,7 +7,6 @@
 #include "matrix.h"
 #include <time.h>
 
-
 using namespace std;
 
 int main()
@@ -20,9 +19,11 @@ int main()
 	int N;
 	scanf("%i", &N);
 
-	ofstream out;   //создаем поток
-	out.open("RunTime.txt", ios::app); // открываем файл для записи в конец
-	out << "Matrix: " << N << "x" << N << endl;
+	//double* times = new double[matrAmount]; // Выделение памяти для массива
+
+	//ofstream out;   //создаем поток
+	//out.open("TestRunTime.txt", ios::app); // открываем файл для записи в конец
+	//out << "Matrix: " << N << "x" << N << endl;
 
 	for (int i = 0; i < matrAmount; i++)
 	{
@@ -31,10 +32,24 @@ int main()
 		//двва способа заполнить матрицу, раскоменнтировать тот который нужен 
 		//заполняем матрицу случайными числами ( для больших размеров матриц актуально)
 		A = EnterRandom(A);
+
+		//ofstream mtrx;
+		//mtrx.open("TestMatrix.txt", ios::app); // открываем файл для записи в конец
+		//for (int i = 0; i < N; i++) 
+		//{
+		//	for (int j = 0; j < N; j++)
+		//	{
+		//		mtrx << A.M[i][j]<<" ";
+		//	}
+		//	mtrx << endl;
+		//}
+		//mtrx << "__________________________________________________________________________________________________________________"<<endl;
+		/*mtrx.close();*/
+
 		//заполняем матрицу с клавиатуры, актуально для небольши размеров матрицы
 		/*A* = EnterMatr(A);*/
 		//выводим матрицу на экран
-		Print(A);
+		Print(A); 
 		//создаем две вспомогательных матрицы, они нужны для расчетов...
 		Matr A1 = InitMatr(N, N);
 		Matr B1 = InitMatr(N, N);
@@ -79,12 +94,31 @@ int main()
 		//Проверяем правильность обратной матрицы, выводм результат умножения обратной амтрицы и исходной
 		printf("\n\nCheck to Inverse matrix: A^-1 * A");
 		Print(UA * A);
-		//Выводим на экран время работы алгоритма...
-		float runTime = ((float)end_time - start_time) / CLOCKS_PER_SEC;
 
-		out << runTime << endl;   // сама запись
+		double runTime = ((double)end_time - start_time) / CLOCKS_PER_SEC;
+		
+		//times[i] = runTime;
+		//out << runTime << endl;   // сама запись
+		
+		//ofstream lmb;
+		//lmb.open("TestLamb.txt", ios::app); // открываем файл для записи в конец
+		//for (int i = 0; i < N; i++)
+		//{
+		//	lmb << lamb[i]<<" ";
+		//}
+		//lmb << endl;
+		//lmb.close();
+
 		printf("Run time --- %f\n\n", runTime);
 	}
-	out.close();
+	/*double sum=0;
+	for (int i = 0; i < matrAmount; i++)
+	{
+		sum += times[i];
+	}
+	double average = sum / matrAmount;
+	out << "Average: " <<fixed<< average << endl;
+
+	out.close();*/
 	return 0;
 }
