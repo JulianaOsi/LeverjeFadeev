@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-double** Laverje(double **M, int N) {
+double** Laverje(double **M, register int N) {
 	
 	Matr A = InitMatr(N, N);
 	A.M = M;
@@ -18,8 +18,9 @@ double** Laverje(double **M, int N) {
 
 	//Начало времени выполнения алгоритма
 	unsigned int start_time = clock();
-
-	for (int i = 1; i < N; i++)
+	register int i;
+	
+	for (i = 1; i < N; i++)
 	{
 		A1 = A * B1;
 		lamb[i - 1] = Spur(A1) / i;

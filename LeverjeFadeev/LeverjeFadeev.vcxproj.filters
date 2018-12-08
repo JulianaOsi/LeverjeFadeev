@@ -34,7 +34,10 @@
     <Text Include="TestRunTime.txt">
       <Filter>Исходные файлы</Filter>
     </Text>
-    <Text Include="NewRunTime.txt">
+    <Text Include="1RunTime.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="2RunTime.txt">
       <Filter>Исходные файлы</Filter>
     </Text>
   </ItemGroup>

@@ -11,10 +11,10 @@ struct Matr // Новый тип Матрица
 	int col;    // количество столбцов
 };
 
-//--------------------------------------------------------------------------------------------------//
+//------------------------------------------ЮЛЯ--------------------------------------------------------//
 
 // Функция определения матрицы. по ее размерам. Возвращает пустую матрицу
-Matr InitMatr(int n, int m)
+Matr InitMatr(register int n, register int m)
 {
 	//Определяем временную матрицу
 	Matr temp;
@@ -23,8 +23,10 @@ Matr InitMatr(int n, int m)
 	//запсываем размеры матрицы
 	temp.row = n;
 	temp.col = m;
+	register int i;
+	 int t = temp.row;
 	//выделяем память под каждый из столбцов...
-	for (int i = 0; i < temp.row; i++)
+	for (i = 0; i < t; i++)
 	{
 		temp.M[i] = new double[m];
 	}
@@ -32,11 +34,42 @@ Matr InitMatr(int n, int m)
 	return temp;
 }
 
+//----------------------------ЮЛЯ----------------------------------------------------------------------//
+
+//// Возвращает разность двух матриц
+Matr operator -(Matr A, Matr B)
+{
+	register int i, j;
+	 int Ar = A.row;
+	 int Ac = A.col;
+
+	for (i = 0; i < Ar; i++)
+		for (j = 0; j < Ac; j++)
+			A.M[i][j] -= B.M[i][j];
+
+	return A;
+}
+
+// Возвращает сумму двух матриц
+Matr operator +(Matr A, Matr B)
+{
+	register int i, j;
+	 int Ar = A.row;
+	 int Ac = A.col;
+	for (i = 0; i < Ar; i++)
+		for (j = 0; j < Ac; j++)
+			A.M[i][j] += B.M[i][j];
+
+	return A;
+}
+
 //Функция для рассчета следа матрицы
 double Spur(Matr A)
 {
-	double t = 0;
-	for (int i = 0; i < A.row; i++)
+	register int i;
+	 int Ar = A.row;
+	 double t = 0;
+	for (i = 0; i < Ar; i++)
 		t += A.M[i][i];
 	return t;
 }
@@ -46,9 +79,13 @@ double Spur(Matr A)
 // Заполнение матрицы нолями, все элементы матрицы нули
 Matr EnterZero(Matr A)
 {
-	for (int i = 0; i < A.row; i++)
+	register int i, j;
+	 int Ar = A.row;
+	 int Ac = A.col;
+
+	for (i = 0; i < Ar; i++)
 	{
-		for (int j = 0; j < A.col; j++)
+		for (j = 0; j < Ac; j++)
 			A.M[i][j] = 0;
 	}
 	return A;
@@ -57,50 +94,39 @@ Matr EnterZero(Matr A)
 // Создание единичной матрицы
 Matr EnterUnit(Matr A)
 {
-	for (int i = 0; i < A.row; i++)
+	register int i, j;
+	 int Ar = A.row;
+	 int Ac = A.col;
+
+	for (i = 0; i < Ar; i++)
 	{
-		for (int j = 0; j < A.col; j++)
+		for (j = 0; j < Ac; j++)
 			A.M[i][j] = 0;
 		A.M[i][i] = 1;
 	}
 	return A;
 }
 
-//--------------------------------------------------------------------------------------------------//
 
-//// Возвращает разность двух матриц
-Matr operator -(Matr A, Matr B)
-{
-	for (int i = 0; i < A.row; i++)
-		for (int j = 0; j < A.col; j++)
-			A.M[i][j] -= B.M[i][j];
-
-	return A;
-}
-
-// Возвращает сумму двух матриц
-Matr operator +(Matr A, Matr B)
-{
-	for (int i = 0; i < A.row; i++)
-		for (int j = 0; j < A.col; j++)
-			A.M[i][j] += B.M[i][j];
-
-	return A;
-}
-
-//--------------------------------------------------------------------------------------------------//
+//---------------------------------------------ЖЕНЯ,СЛАВА-----------------------------------------------------//
 
 //Умножение двух матриц
 Matr operator *(Matr A, Matr B)
 {
 	//создаем вспомогательную матрицу
 	Matr C;
-	C = InitMatr(A.row, B.col);
+	 int Ar = A.row;
+	 int Ac = A.col;
+	 int Bc = B.col;
+
+	C = InitMatr(Ar, Bc);
 	C = EnterZero(C);
+
+	register int i, j ,l;
 	//во вспомогательную матрицу записываем результат умножения двух заданных матриц
-	for (int i = 0; i < A.row; i++)
-		for (int j = 0; j < B.col; j++)
-			for (int l = 0; l < A.col; l++)
+	for (i = 0; i < Ar; i++)
+		for (j = 0; j < Bc; j++)
+			for (l = 0; l < Ac; l++)
 				C.M[i][j] += A.M[i][l] * B.M[l][j];
 
 	//возвращаем результат умножения
@@ -108,17 +134,19 @@ Matr operator *(Matr A, Matr B)
 }
 
 // Умножение матрицы на скаляр
-Matr operator * (double a, Matr B)
+Matr operator * (register double a, Matr B)
 {
 	//создаем вспомогательную матрицу
 	Matr C;
-	C = InitMatr(B.row, B.col);
+	int Bc = B.col;
+	int Br = B.row;
+	C = InitMatr(Br, Bc);
 	C = EnterZero(C);
+	register int i, j;
 	//во вспомогательную матрицу записываем результат умножения матрицы на скаляр
-	for (int i = 0; i < B.row; i++)
-		for (int j = 0; j < B.col; j++)
+	for (i = 0; i < Br; i++)
+		for (j = 0; j < Bc; j++)
 			C.M[i][j] = B.M[i][j] * a;
-
 	return C;
 }
 
@@ -136,7 +164,6 @@ Matr EnterRandom(Matr A)
 			
 		}
 	}
-
 	return A;
 }
 

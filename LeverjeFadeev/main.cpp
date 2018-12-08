@@ -19,16 +19,16 @@ int main()
 	//Спрашиваем у пользователя и считываем размер матрицы, с которой будем работать
 
 	printf("Enter Size of Matrix: ");
-	int N;
+	register int N;
 	scanf("%i", &N);
 
-	//Запись времени выполнения алгоритма в TestRunTime.txt
+	/*Запись времени выполнения алгоритма в TestRunTime.txt*/
 	//double* times = new double[matrAmount]; // Выделение памяти для массива
 	//ofstream out;   //создаем поток
-	//out.open("NewRunTime.txt", ios::app); // открываем файл для записи в конец
+	//out.open("2RunTime.txt", ios::app); // открываем файл для записи в конец
 	//out << "Matrix: " << N << "x" << N << endl;
 
-	for (int i = 0; i < matrAmount; i++)
+	for (int k = 0; k < matrAmount; k++)
 	{
 		//Создаем матрицу заданного размера
 
@@ -66,7 +66,7 @@ int main()
 		//mtrx.close();
 
 		//выводим матрицу на экран
-		Print(A); 
+		/*Print(A); */
 
 		//создаем две вспомогательных матрицы, они нужны для расчетов...
 		Matr A1 = InitMatr(N, N);
@@ -90,7 +90,8 @@ int main()
 
 		//начинаем сам алгоритм Леверье-Фаддеева, запускаем не до последнего элемента
 		//последний шаг считаем отдельно
-		for (int i = 1; i < N; i++)
+		register int i;
+		for (i = 1; i < N; i++)
 		{
 			//Пересчитываем матрицу A1 и B1 по формулам Фаддеева
 			A1 = A * B1;
@@ -116,23 +117,23 @@ int main()
 		unsigned int end_time = clock();
 
 		//Выводим коэффициенты характеристического полинома
-		printf("\n\nCoeff polynom's: \n");
+		/*printf("\n\nCoeff polynom's: \n");
 		for (int i = 0; i < N; i++)
-			printf("Lambda %i  --   %6.8f\n", i + 1, lamb[i]);
+			printf("Lambda %i  --   %6.8f\n", i + 1, lamb[i]);*/
 
-		//Печатаем обратную матрицу
-		printf("\n\nInverse Matrix:");
-		Print(UA);
+		////Печатаем обратную матрицу
+		//printf("\n\nInverse Matrix:");
+		//Print(UA);
 
-		//Проверяем правильность обратной матрицы, выводм результат умножения обратной амтрицы и исходной
-		printf("\n\nCheck to Inverse matrix: A^-1 * A");
-		Print(UA * A);
+		////Проверяем правильность обратной матрицы, выводм результат умножения обратной амтрицы и исходной
+		//printf("\n\nCheck to Inverse matrix: A^-1 * A");
+		//Print(UA * A);
 
 		//Время выполнения алгоритма
 		double runTime = ((double)end_time - start_time) / CLOCKS_PER_SEC;
 		
-		/*times[i] = runTime;*/
-		//out << runTime << endl;   // запись времени
+		/*times[k] = runTime;
+		out << runTime << endl; */  // запись времени
 
 		//Запись лямбд в TestLamb.txt
 		//ofstream lmb;
@@ -144,10 +145,10 @@ int main()
 		//lmb << endl;
 		//lmb.close();
 
-		printf("Run time --- %f\n\n", runTime);
+		/*printf("Run time --- %f\n\n", runTime);*/
 	}
 
-	//Вычисление среднего времени выполнения
+	/*Вычисление среднего времени выполнения*/
 	/*double sum=0;
 	for (int i = 0; i < matrAmount; i++)
 	{
@@ -157,5 +158,6 @@ int main()
 	out << "Average: " <<fixed<< average << endl;
 
 	out.close();*/
+
 	return 0;
 }
